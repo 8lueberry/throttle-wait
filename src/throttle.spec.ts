@@ -47,4 +47,22 @@ describe('Throttle decorator', () => {
       expect(result[i + 1] - result[i]).toBeGreaterThanOrEqual(throttleTime)
     }
   })
+
+  test('make sure the context of the object is the same', async () => {
+    // arrange
+    class Test {
+      constructor(public id = 'TestID') {}
+      @Throttle(throttleTime)
+      public async run() {
+        return this.id
+      }
+    }
+    const instance = new Test()
+
+    // act
+    const result = await instance.run()
+
+    // assert
+    expect(result).toEqual('TestID')
+  })
 })
