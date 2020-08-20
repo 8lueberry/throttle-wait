@@ -1,0 +1,29 @@
+{
+  "name": "throttle-wait",
+  "version": "0.0.1",
+  "description": "Run a function at max once per x milliseconds. Subsequent calls will wait.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "jest": {
+    "rootDir": "src"
+  },
+  "prepublish": "tsc",
+  "author": "Dan Le Van",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.10",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.1",
+    "prettier": "^2.0.5",
+    "typescript": "^4.0.2"
+  }
+}
