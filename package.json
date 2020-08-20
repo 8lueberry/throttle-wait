@@ -1,18 +1,18 @@
 {
   "name": "throttle-wait",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Run a function at max once per x milliseconds. Subsequent calls will wait.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "prepare": "npm run build"
   },
   "jest": {
     "rootDir": "src"
   },
-  "prepublish": "tsc",
   "author": "Dan Le Van",
   "license": "ISC",
   "devDependencies": {
