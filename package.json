@@ -1,6 +1,6 @@
 {
   "name": "throttle-wait",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Run a function at max once per x milliseconds. Subsequent calls will wait.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

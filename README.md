@@ -2,6 +2,9 @@
 
 Run a function at max once per x milliseconds. Subsequent calls will wait.
 
+- 0 dependencies
+- Typescript friendly (can use @Decorators)
+
 ## Installation
 
 ```bash
@@ -59,3 +62,28 @@ await myClass.myFn()
 ```
 
 IMPORTANT: Make your function async. The decorator will return an async function. This will ensure that the intellisense of your IDE tells you that your function is async.
+
+## Options
+
+```typescript
+const myFnThrottled = throttle(throttleTime, myFn, { max: 3 })
+```
+
+- max: The maximum number of calls in the queue before throwing an error
+
+## Errors
+
+`Throttle backpressure error: Throttle is being called faster than it can run`
+
+This means that your function is being called a lot asynchronously. An error is thrown when there are 100 calls in the queue (configurable).
+
+## Advance throttling
+
+If you want to ignore subsequent calls, look at lodash throttle function
+
+- https://www.npmjs.com/package/lodash.throttle
+
+If you want to have more throttling control, you can check out these great libs.
+
+- https://github.com/jhurliman/node-rate-limiter
+- https://github.com/SGrondin/bottleneck
