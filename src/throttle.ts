@@ -3,17 +3,13 @@
  * @param time The time to wait in milliseconds
  * @param cb The function to call
  */
-export function throttle<T>(time: number, cb: () => Promise<T>): () => Promise<T> {
+export function throttle<T>(time: number, cb: () => T | Promise<T>): () => Promise<T> {
   let last = 0
 
   return async () => {
     const go = () => {
       last = new Date().getTime()
       const result = cb()
-      if (typeof result?.then !== 'function') {
-        throw new Error(`throttle expects your function to be async (or return a promise)`)
-      }
-
       return result
     }
 

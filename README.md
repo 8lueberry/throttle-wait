@@ -1,40 +1,61 @@
-# Run a function at max once per x milliseconds. Subsequent calls will wait.
+# throttle-wait
 
-## Quick start
+Run a function at max once per x milliseconds. Subsequent calls will wait.
 
-```typescript
-const run = throttle(5 * 1000, async () => {
-  // 5 seconds
-  return new Date()
-})
+## Installation
 
-//
-console.log(await run())
-
-//
-console.log(await run())
-
-//
-console.log(await run())
+```bash
+$ npm install throttle-wait
 ```
 
-## Typescript decorators
+or
+
+```bash
+$ yarn add throttle-wait
+```
+
+## Simple usage
 
 ```typescript
+import { throttle } from 'throttle-wait'
+
+function myFn() {
+  console.log(new Date())
+}
+
+const myFnThrottled = throttle(5 * 1000, myFn) // 5s
+
+// 2020-01-01T00:00:00.114Z
+await myFnThrottled()
+
+// 2020-01-01T00:00:05.120Z
+await myFnThrottled()
+
+// 2020-01-01T00:00:10.125Z
+await myFnThrottled()
+```
+
+## Typescript decorator usage
+
+```typescript
+import { Throttle } from 'throttle-wait'
+
 class MyClass {
-  @Throttle(5 * 1000) // 5 seconds
-  public async run() {
-    return new Date()
+  @Throttle(5 * 1000) // 5s
+  public async myFn() {
+    console.log(new Date())
   }
 }
 const myClass = new MyClass()
 
-//
-console.log(await myClass.run())
+// 2020-01-01T00:00:00.114Z
+await myClass.myFn()
 
-//
-console.log(await myClass.run())
+// 2020-01-01T00:00:05.120Z
+await myClass.myFn()
 
-//
-console.log(await myClass.run())
+// 2020-01-01T00:00:10.125Z
+await myClass.myFn()
 ```
+
+IMPORTANT: Make your function async. The decorator will return an async function. This will ensure that the intellisense of your IDE tells you that your function is async.

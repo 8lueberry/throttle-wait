@@ -22,16 +22,6 @@ describe('throttle', () => {
       expect(result[i + 1] - result[i]).toBeGreaterThanOrEqual(throttleTime)
     }
   })
-
-  test('function is not async should throw', async () => {
-    // arrange
-    const run = throttle(throttleTime, () => 'Not a promise' as any)
-
-    // act
-
-    // assert
-    expect(run()).rejects.toThrowError(`throttle expects your function to be async`)
-  })
 })
 
 describe('Throttle decorator', () => {
@@ -56,21 +46,5 @@ describe('Throttle decorator', () => {
     for (let i = 0; i < result.length - 1; i++) {
       expect(result[i + 1] - result[i]).toBeGreaterThanOrEqual(throttleTime)
     }
-  })
-
-  test('function is not async should throw', async () => {
-    // arrange
-    class Test {
-      @Throttle(throttleTime)
-      public run() {
-        return 'Not a promise'
-      }
-    }
-    const instance = new Test()
-
-    // act
-
-    // assert
-    expect(instance.run()).rejects.toThrowError(`throttle expects your function to be async`)
   })
 })
