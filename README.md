@@ -66,10 +66,16 @@ IMPORTANT: Make your function async. The decorator will return an async function
 ## Options
 
 ```typescript
-const myFnThrottled = throttle(throttleTime, myFn, { max: 3 })
+const myFnThrottled = throttle(throttleTime, myFn, {
+  max: 100,
+  onThrottle: (next, queue) => {
+    console.log(`Throttling, will run in ${next}ms (${queue} in the queue)`)
+  },
+})
 ```
 
-- max: The maximum number of calls in the queue before throwing an error
+- max (default=100): The maximum number of calls in the queue before throwing an error
+- onThrottle: Callback when your function is being throttled
 
 ## Errors
 

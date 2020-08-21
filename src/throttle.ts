@@ -1,5 +1,6 @@
 interface Options {
-  max: number
+  max?: number
+  onThrottle?: (nextRun: number, queue: number) => void
 }
 
 const defaultOptions: Options = {
@@ -51,6 +52,10 @@ export function throttle<T>(
     const nextRun = throttleInfo.bump()
 
     if (nextRun > 0) {
+      if (opt.onThrottle) {
+        opt.onThrottle(nextRun, throttleInfo.queue)
+      }
+
       return new Promise((resolve, reject) =>
         setTimeout(() => {
           try {

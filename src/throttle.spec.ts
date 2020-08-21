@@ -45,7 +45,7 @@ describe('throttle', () => {
     }
   })
 
-  test('multiple async calls > allowed should throw an error', async () => {
+  test('Options: multiple async calls > allowed should throw an error', async () => {
     // arrange
     const result = []
     const run = throttle(
@@ -65,6 +65,24 @@ describe('throttle', () => {
 
     // assert
     expect(act).toThrowError(`Throttle backpressure error`)
+  })
+
+  test('Options: onThrottle should be called', async () => {
+    // arrange
+    const result = []
+    const run = throttle(throttleTime, async () => {}, {
+      onThrottle: (next, queue) => {
+        result.push(`next=${next} queue=${queue}`)
+      },
+    })
+
+    // act
+    for (let i = 0; i < 6; i++) {
+      await run()
+    }
+
+    // assert
+    expect(result.length).toBeGreaterThan(0)
   })
 })
 
